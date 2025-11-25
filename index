@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversation with Krishna – Bhagavad Gita Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #203a43, #0f2027 60%);
+      color: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    @media (max-width: 800px) {
+      .app {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    .chat-section {
+      display: flex;
+      flex-direction: column;
+      height: 550px;
+    }
+
+    .header {
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(to right, #0f172a, #111827);
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #fde68a, #f59e0b 55%, #7c2d12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      border: 2px solid rgba(251, 191, 36, 0.8);
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+    }
+
+    .header-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .header-text p {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .chat-window {
+      flex: 1;
+      padding: 16px 18px;
+      overflow-y: auto;
+      background: radial-gradient(circle at top left, #1f2937, #020617 60%);
+    }
+
+    .message {
+      max-width: 85%;
+      margin-bottom: 14px;
+      padding: 10px 13px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      position: relative;
+    }
+
+    .message.user {
+      margin-left: auto;
+      background: #1d4ed8;
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message.krishna {
+      margin-right: auto;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-bottom-left-radius: 4px;
+    }
+
+    .message small {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.72rem;
+      opacity: 0.7;
+    }
+
+    .input-area {
+      padding: 12px 14px;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      background: #020617;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 8px 10px;
+      min-height: 42px;
+      max-height: 110px;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.5);
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(to right, #f97316, #f59e0b);
+      color: #111827;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      filter: brightness(1.05);
+    }
+
+    .sidebar {
+      padding: 18px 18px 16px;
+      background: linear-gradient(to bottom, #020617, #0b1120);
+      border-left: 1px solid rgba(148, 163, 184, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 0.88rem;
+    }
+
+    .sidebar h2 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: rgba(107, 114, 128, 0.18);
+      color: #e5e7eb;
+      margin-bottom: 6px;
+    }
+
+    ul {
+      padding-left: 16px;
+      margin-top: 4px;
+    }
+
+    li {
+      margin-bottom: 4px;
+      color: #d1d5db;
+    }
+
+    .examples button {
+      margin-top: 6px;
+      margin-right: 6px;
+      margin-bottom: 4px;
+      background: transparent;
+      border-radius: 999px;
+      padding: 5px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+
+    .examples button:hover {
+      background: rgba(31, 41, 55, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="chat-section">
+      <header class="header">
+        <div class="avatar">ॐ</div>
+        <div class="header-text">
+          <h1>Talk with Krishna</h1>
+          <p>Bhagavad Gita inspired chatbot for my final project</p>
+        </div>
+      </header>
+
+      <main class="chat-window" id="chatWindow">
+        <div class="message krishna">
+          Welcome, Arjuna and all who seek guidance. Ask what troubles your heart...
+          <small>Krishna · Bhagavad Gita inspired</small>
+        </div>
+      </main>
+
+      <form class="input-area" id="chatForm">
+        <textarea
+          id="userInput"
+          placeholder="Ask Krishna a question, for example: What is my purpose?"
+        ></textarea>
+        <button type="submit">
+          Send
+        </button>
+      </form>
+    </section>
+
+    <aside class="sidebar">
+      <div class="card">
+        <span class="badge">About the project</span>
+        <h2>Bhagavad Gita Chatbot</h2>
+        <p>
+          This chatbot is built by selecting core themes from the Bhagavad Gita
+          like duty, detachment, purpose, devotion, and knowledge. The idea is that you are like Arjuna.
+          The question you ask is matched to one of these themes
+          and "Krishna" responds with lines based on the text.
+        </p>
+      </div>
+
+      <div class="card examples">
+        <span class="badge">Try Asking</span>
+        <button type="button" data-example="What is my purpose in life?">
+          What is my purpose in life?
+        </button>
+        <button type="button" data-example="How can I be happy?">
+          How can I be happy?
+        </button>
+        <button type="button" data-example="I am scared of failing.">
+          I am scared of failing.
+        </button>
+        <button type="button" data-example="Why should I do my duty?">
+          Why should I do my duty?
+        </button>
+      </div>
+
+      <div class="card">
+        <span class="badge">Notes</span>
+        <ul>
+          <li>Made by Weston Covey for Professor Jennifer Rhodes's class</li>
+          <li>Responses are paraphrases, not a literal translation.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // Core themes and response bank, loosely based on the Gita
+    const krishnaResponses = [
+      {
+        theme: "purpose",
+        keywords: ["purpose", "meaning", "why am i here", "what am i here", "life meaning"],
+        replies: [
+          `Your purpose is not found in random desires but in your deepest duty. Focus on what is in front of you and act with sincerity, without clinging to the result.`,
+          `You are here to act, to learn, and to grow in wisdom and love. Do your work as an offering, not as a way to feed your ego.`,
+          `Do not be lost in the question “Who am I” forever. Do the right action in this moment and your path will slowly reveal itself.`,
+          `"You have the right to your actions, but never to the fruits of your actions." — Bhagavad Gita 2.47`,
+          `"It is better to do your own duty imperfectly than to do another's duty perfectly." — Bhagavad Gita 3.35`,
+          `Your purpose is awakened when you choose truth over comfort and action over hesitation.`,
+          `Walk your path with integrity, and clarity will rise within you.`
+        ]
+      },
+      {
+        theme: "happiness",
+        keywords: ["happy", "happiness", "joy", "sad", "depressed", "empty"],
+        replies: [
+          `Seeking happiness only in outside things brings endless restlessness. Lasting peace comes when you act well and let go of constant craving for specific outcomes.`,
+          `You suffer because your mind runs after what changes. Turn a part of your attention inward, act rightly, and accept that gain and loss always come and go.`,
+          `True peace begins when you stop trying to control everything. Do your best, be steady in success and failure, and you will taste a deeper kind of happiness.`,
+          `"Pleasure and pain come and go like the seasons. Endure them without being disturbed." — Bhagavad Gita 2.14`,
+          `"As the ocean remains unmoved by rivers flowing into it, so a wise person remains unmoved by desire." — Bhagavad Gita 2.70`,
+          `"In that joyous state, one is boundless, beyond sorrow." — Bhagavad Gita 6.21`,
+          `Happiness grows where expectation weakens and gratitude deepens.`,
+          `Peace begins when you stop letting every outcome decide your worth.`
+        ]
+      },
+      {
+        theme: "fear",
+        keywords: ["fear", "afraid", "scared", "anxious", "anxiety", "worry"],
+        replies: [
+          `Fear grows when you stare only at the future. Bring your mind back to your present duty and do that well. Courage is born in focused action.`,
+          `You are not as fragile as your fear suggests. Act with the best wisdom you have, accept what you cannot control, and remember that no outcome can touch your inner self.`,
+          `Do not let fear paralyze you before the battle even begins. Step forward, one action at a time, and your strength will rise to meet you.`,
+          `"If your mind becomes fixed on Me, you will overcome all fear." — Bhagavad Gita 18.58`,
+          `"In this world, there is nothing so purifying as knowledge." — Bhagavad Gita 4.38`,
+          `Fear fades when you anchor your mind to what is real and let the imagined drift away.`,
+          `Act with courage even when courage feels small; this is how strength is born.`
+        ]
+      },
+      {
+        theme: "duty",
+        keywords: ["duty", "work", "job", "responsibility", "obligation", "career"],
+        replies: [
+          `It is better to do your own duty imperfectly than to live someone else’s life perfectly. Do what is yours to do, even when it is hard.`,
+          `Do your work without building your identity on the result. You control the action you take, not the full outcome of events.`,
+          `When you treat your duties as an offering, even simple tasks become a path toward inner clarity instead of a burden.`
+        ]
+      },
+      {
+        theme: "failure",
+        keywords: ["fail", "failure", "mistake", "mess up", "loser"],
+        replies: [
+          `Failure in outward action is not failure of the soul. If you learn and stand up again, you are still moving on the path.`,
+          `Do not worship success and fear failure as a god. Offer your best effort, accept the result, and use every outcome as a lesson.`,
+          `What you call failure is only one moment on a long road. Stay steady, correct your course, and keep walking.`
+        ]
+      },
+      {
+        theme: "attachment",
+        keywords: ["attachment", "addicted", "obsessed", "let go", "cling", "clinging"],
+        replies: [
+          `Pain grows where attachment is tight. Love and act, but do not build your whole identity on having a specific outcome.`,
+          `Act with full effort, but release the constant need to control what follows. This is the heart of detachment.`,
+          `When you let go of clinging, you are not becoming cold. You are freeing yourself to act with clarity instead of fear.`
+        ]
+      },
+      {
+        theme: "general",
+        keywords: [],
+        replies: [
+          `Steady your mind, do the right thing that lies in front of you, and do not be shaken by every passing rise and fall.`,
+          `Act with courage, speak truthfully, and let go of the constant need to control every result. That is enough for this moment.`,
+          `Do not wait for perfect certainty before you move. Walk the path one honest step at a time, and wisdom will grow within you.`
+        ]
+      }
+    ];
+
+    function getKrishnaReply(userText) {
+      const text = userText.toLowerCase();
+
+      // Try to match a theme by keyword
+      for (const block of krishnaResponses) {
+        if (block.theme === "general") continue;
+        if (block.keywords.some(kw => text.includes(kw))) {
+          const replies = block.replies;
+          const randomIndex = Math.floor(Math.random() * replies.length);
+          return { reply: replies[randomIndex], theme: block.theme };
+        }
+      }
+
+      // Fallback
+      const generalBlock = krishnaResponses.find(b => b.theme === "general");
+      const randomIndex = Math.floor(Math.random() * generalBlock.replies.length);
+      return { reply: generalBlock.replies[randomIndex], theme: "general" };
+    }
+
+    const chatWindow = document.getElementById("chatWindow");
+    const chatForm = document.getElementById("chatForm");
+    const userInput = document.getElementById("userInput");
+
+    function appendMessage(text, sender = "user", meta = "") {
+      const msg = document.createElement("div");
+      msg.classList.add("message", sender);
+      msg.innerHTML = text.replace(/\n/g, "<br>");
+      if (meta) {
+        const small = document.createElement("small");
+        small.textContent = meta;
+        msg.appendChild(small);
+      }
+      chatWindow.appendChild(msg);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    chatForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      appendMessage(text, "user", "You");
+      userInput.value = "";
+
+      setTimeout(() => {
+        const { reply, theme } = getKrishnaReply(text);
+        const meta = `Krishna · theme: ${theme}`;
+        appendMessage(reply, "krishna", meta);
+      }, 500);
+    });
+
+    document.querySelectorAll("[data-example]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const text = btn.getAttribute("data-example");
+        userInput.value = text;
+        userInput.focus();
+      });
+    });
+  </script>
+</body>
+</html>
