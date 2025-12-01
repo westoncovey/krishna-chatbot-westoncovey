@@ -14,7 +14,7 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #203a43, #0f2027 60%);
+      background: #020617;
       color: #f9fafb;
       min-height: 100vh;
       display: flex;
@@ -26,13 +26,13 @@
     .app {
       width: 100%;
       max-width: 900px;
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 18px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      background: #020617;
+      border-radius: 14px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.7);
       display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.35);
+      border: 1px solid #1f2937;
     }
 
     @media (max-width: 800px) {
@@ -47,33 +47,33 @@
     .chat-section {
       display: flex;
       flex-direction: column;
-      height: 550px;
+      height: 540px;
+      background: radial-gradient(circle at top, #111827, #020617 70%);
     }
 
     .header {
-      padding: 18px 22px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 16px 18px;
+      border-bottom: 1px solid #1f2937;
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: linear-gradient(to right, #0f172a, #111827);
+      gap: 10px;
+      background: #020617;
     }
 
     .avatar {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #fde68a, #f59e0b 55%, #7c2d12);
+      background: #f97316;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      border: 2px solid rgba(251, 191, 36, 0.8);
-      box-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+      font-size: 20px;
+      border: 2px solid #fed7aa;
     }
 
     .header-text h1 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
     }
 
@@ -86,15 +86,14 @@
       flex: 1;
       padding: 16px 18px;
       overflow-y: auto;
-      background: radial-gradient(circle at top left, #1f2937, #020617 60%);
     }
 
     .message {
       max-width: 85%;
       margin-bottom: 14px;
-      padding: 10px 13px;
-      border-radius: 14px;
-      font-size: 0.92rem;
+      padding: 9px 12px;
+      border-radius: 12px;
+      font-size: 0.9rem;
       line-height: 1.4;
       position: relative;
     }
@@ -102,27 +101,27 @@
     .message.user {
       margin-left: auto;
       background: #1d4ed8;
-      color: white;
+      color: #f9fafb;
       border-bottom-right-radius: 4px;
     }
 
     .message.krishna {
       margin-right: auto;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: #020617;
+      border: 1px solid #1f2937;
       border-bottom-left-radius: 4px;
     }
 
     .message small {
       display: block;
-      margin-top: 6px;
-      font-size: 0.72rem;
+      margin-top: 5px;
+      font-size: 0.7rem;
       opacity: 0.7;
     }
 
     .input-area {
       padding: 12px 14px;
-      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      border-top: 1px solid #1f2937;
       background: #020617;
       display: flex;
       gap: 10px;
@@ -132,10 +131,10 @@
     textarea {
       flex: 1;
       resize: none;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      border-radius: 10px;
+      border: 1px solid #374151;
       padding: 8px 10px;
-      min-height: 42px;
+      min-height: 40px;
       max-height: 110px;
       background: #020617;
       color: #e5e7eb;
@@ -145,17 +144,16 @@
     textarea:focus {
       outline: none;
       border-color: #60a5fa;
-      box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.5);
     }
 
     button {
       border: none;
       border-radius: 999px;
-      padding: 10px 18px;
+      padding: 9px 16px;
       font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
-      background: linear-gradient(to right, #f97316, #f59e0b);
+      background: #f59e0b;
       color: #111827;
       display: inline-flex;
       align-items: center;
@@ -164,29 +162,29 @@
     }
 
     button:hover {
-      filter: brightness(1.05);
+      filter: brightness(1.03);
     }
 
     .sidebar {
-      padding: 18px 18px 16px;
-      background: linear-gradient(to bottom, #020617, #0b1120);
-      border-left: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 16px 16px 14px;
+      background: #020617;
+      border-left: 1px solid #1f2937;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      font-size: 0.88rem;
+      gap: 14px;
+      font-size: 0.86rem;
     }
 
     .sidebar h2 {
-      font-size: 1rem;
-      margin-bottom: 6px;
+      font-size: 0.96rem;
+      margin-bottom: 4px;
     }
 
     .card {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 14px;
-      padding: 10px 12px;
-      border: 1px solid rgba(55, 65, 81, 0.8);
+      background: #020617;
+      border-radius: 12px;
+      padding: 9px 11px;
+      border: 1px solid #111827;
     }
 
     .badge {
@@ -196,9 +194,9 @@
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      background: rgba(107, 114, 128, 0.18);
+      background: #111827;
       color: #e5e7eb;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     ul {
@@ -211,19 +209,25 @@
       color: #d1d5db;
     }
 
-    .examples button {
+    .examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
       margin-top: 6px;
-      margin-right: 6px;
-      margin-bottom: 4px;
-      background: transparent;
-      border-radius: 999px;
+    }
+
+    .examples button {
+      margin: 0;
       padding: 5px 10px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: transparent;
       color: #e5e7eb;
+      font-size: 0.8rem;
     }
 
     .examples button:hover {
-      background: rgba(31, 41, 55, 0.9);
+      background: #111827;
     }
   </style>
 </head>
@@ -234,7 +238,7 @@
         <div class="avatar">ॐ</div>
         <div class="header-text">
           <h1>Talk with Krishna</h1>
-          <p>Bhagavad Gita inspired chatbot for Weston Covey's final project</p>
+          <p>Simple Bhagavad Gita chatbot for Weston Covey's final project</p>
         </div>
       </header>
 
@@ -258,37 +262,47 @@
 
     <aside class="sidebar">
       <div class="card">
-        <span class="badge">About the project</span>
+        <span class="badge">Project overview</span>
         <h2>Bhagavad Gita Chatbot</h2>
         <p>
-          This chatbot is built by selecting core themes from the Bhagavad Gita
-          like duty, detachment, purpose, devotion, and knowledge. The idea is that you are like Arjuna.
-          You can ask questions based on the desire of your heart, and one of these themes
-          and "Krishna" responds like he would in the book.
+          This is a small class project where I turned a few big ideas from the
+          Bhagavad Gita into a rule-based chatbot. The user types as if they are
+          Arjuna, and “Krishna” answers using short lines and ideas that come from
+          the text and from my notes.
         </p>
       </div>
 
-      <div class="card examples">
-        <span class="badge">Try Asking</span>
-        <button type="button" data-example="What is my purpose in life?">
-          What is my purpose in life?
-        </button>
-        <button type="button" data-example="How can I be happy?">
-          How can I be happy?
-        </button>
-        <button type="button" data-example="I am scared of failing.">
-          I am scared of failing.
-        </button>
-        <button type="button" data-example="Why should I do my duty?">
-          Why should I do my duty?
-        </button>
+      <div class="card">
+        <span class="badge">Things you can ask about</span>
+        <p>Try questions connected to these themes:</p>
+        <div class="examples">
+          <button type="button" data-example="What is my purpose in life?">
+            Purpose and calling
+          </button>
+          <button type="button" data-example="How can I be happy?">
+            Happiness and peace
+          </button>
+          <button type="button" data-example="I am scared of failing.">
+            Fear and failure
+          </button>
+          <button type="button" data-example="Why should I do my duty?">
+            Duty and responsibility
+          </button>
+        </div>
       </div>
 
       <div class="card">
-        <span class="badge">Notes</span>
+        <span class="badge">How it works</span>
         <ul>
-          <li>Made by Weston Covey for Professor Jennifer Rhodes's class</li>
-          <li>Some responses are literal quotes from the texts, and others are paraphrased for better understanding.</li>
+          <li>Made by Weston Covey for Professor Jennifer Rhodes.</li>
+          <li>
+            There is no live AI model here. The script just matches a few
+            keywords and then picks one of the pre-written Krishna answers.
+          </li>
+          <li>
+            Some lines are direct quotes from the Gita, others are my
+            paraphrases to make the ideas shorter and clearer.
+          </li>
         </ul>
       </div>
     </aside>
@@ -375,20 +389,33 @@
       }
     ];
 
+    // NEW: track which themes have already used a quote
+    const usedQuote = {};
+
     function getKrishnaReply(userText) {
       const text = userText.toLowerCase();
 
-      // Try to match a theme by keyword
       for (const block of krishnaResponses) {
         if (block.theme === "general") continue;
         if (block.keywords.some(kw => text.includes(kw))) {
+
+          // find quote replies
+          const quoteReplies = block.replies.filter(r => r.includes("Bhagavad Gita"));
+
+          // if theme has a quote AND we haven't used it yet, use it first
+          if (quoteReplies.length && !usedQuote[block.theme]) {
+            usedQuote[block.theme] = true;
+            return { reply: quoteReplies[0], theme: block.theme };
+          }
+
+          // otherwise random from all replies
           const replies = block.replies;
           const randomIndex = Math.floor(Math.random() * replies.length);
           return { reply: replies[randomIndex], theme: block.theme };
         }
       }
 
-      // Fallback
+      // fallback to general
       const generalBlock = krishnaResponses.find(b => b.theme === "general");
       const randomIndex = Math.floor(Math.random() * generalBlock.replies.length);
       return { reply: generalBlock.replies[randomIndex], theme: "general" };
